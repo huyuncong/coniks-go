@@ -11,10 +11,10 @@ package directory
 import (
 	"bytes"
 
-	"github.com/coniks-sys/coniks-go/crypto/sign"
-	"github.com/coniks-sys/coniks-go/crypto/vrf"
-	"github.com/coniks-sys/coniks-go/merkletree"
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/crypto/sign"
+	"github.com/huyuncong/coniks-go/crypto/vrf"
+	"github.com/huyuncong/coniks-go/merkletree"
+	"github.com/huyuncong/coniks-go/protocol"
 )
 
 // A ConiksDirectory maintains the underlying persistent

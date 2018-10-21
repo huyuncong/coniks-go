@@ -3,9 +3,9 @@ package merkletree
 import (
 	"bytes"
 
-	"github.com/coniks-sys/coniks-go/crypto"
-	"github.com/coniks-sys/coniks-go/crypto/sign"
-	"github.com/coniks-sys/coniks-go/utils"
+	"github.com/huyuncong/coniks-go/crypto"
+	"github.com/huyuncong/coniks-go/crypto/sign"
+	"github.com/huyuncong/coniks-go/utils"
 )
 
 // AssocData is associated data to be hashed into the STR.

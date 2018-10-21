@@ -9,11 +9,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coniks-sys/coniks-go/application"
-	"github.com/coniks-sys/coniks-go/application/testutil"
-	"github.com/coniks-sys/coniks-go/crypto/sign"
-	"github.com/coniks-sys/coniks-go/crypto/vrf"
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/application"
+	"github.com/huyuncong/coniks-go/application/testutil"
+	"github.com/huyuncong/coniks-go/crypto/sign"
+	"github.com/huyuncong/coniks-go/crypto/vrf"
+	"github.com/huyuncong/coniks-go/protocol"
 )
 
 var registrationMsg = `

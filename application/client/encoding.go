@@ -1,8 +1,8 @@
 package client
 
 import (
-	"github.com/coniks-sys/coniks-go/application"
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/application"
+	"github.com/huyuncong/coniks-go/protocol"
 )
 
 // CreateRegistrationMsg returns a JSON encoding of

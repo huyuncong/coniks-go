@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/protocol"
 )
 
 func TestCannotUnmarshallRequest(t *testing.T) {

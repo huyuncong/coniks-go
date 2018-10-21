@@ -12,7 +12,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/protocol"
 )
 
 // EpochTimer consists of a `time.Timer` and the epoch deadline value.

@@ -5,8 +5,8 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/coniks-sys/coniks-go/protocol"
-	"github.com/coniks-sys/coniks-go/protocol/directory"
+	"github.com/huyuncong/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/protocol/directory"
 )
 
 func TestComputeDirectoryIdentity(t *testing.T) {

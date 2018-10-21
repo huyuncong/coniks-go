@@ -22,7 +22,7 @@ complete your pull request submission:
 ### <a name="submit"></a> Submission Guidelines
 Before you submit your pull request consider the following guidelines:
 
-* Search [GitHub](https://github.com/coniks-sys/coniks-go/pulls)
+* Search [GitHub](https://github.com/huyuncong/coniks-go/pulls)
 for an open or closed Pull Request that relates to your submission.
 You don't
 want to duplicate effort.
@@ -54,5 +54,5 @@ To ensure consistency throughout the source code, keep these rules in mind as yo
 * All public API methods **must be documented**.
 
 
-[github]: https://github.com/coniks-sys/coniks-go
-[issues]: https://github.com/coniks-sys/coniks-go/issues
+[github]: https://github.com/huyuncong/coniks-go
+[issues]: https://github.com/huyuncong/coniks-go/issues

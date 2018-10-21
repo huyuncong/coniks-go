@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"errors"
 
-	"github.com/coniks-sys/coniks-go/crypto"
-	"github.com/coniks-sys/coniks-go/crypto/sign"
-	"github.com/coniks-sys/coniks-go/crypto/vrf"
+	"github.com/huyuncong/coniks-go/crypto"
+	"github.com/huyuncong/coniks-go/crypto/sign"
+	"github.com/huyuncong/coniks-go/crypto/vrf"
 )
 
 var (

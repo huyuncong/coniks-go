@@ -7,7 +7,7 @@ package application
 import (
 	"encoding/json"
 
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/protocol"
 )
 
 // MarshalRequest returns a JSON encoding of the client's request.

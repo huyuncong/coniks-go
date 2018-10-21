@@ -3,7 +3,7 @@ package cli
 import (
 	"fmt"
 
-	"github.com/coniks-sys/coniks-go/internal"
+	"github.com/huyuncong/coniks-go/internal"
 	"github.com/spf13/cobra"
 )
 

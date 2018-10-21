@@ -1,9 +1,9 @@
 package client
 
 import (
-	"github.com/coniks-sys/coniks-go/application"
-	"github.com/coniks-sys/coniks-go/crypto/sign"
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/application"
+	"github.com/huyuncong/coniks-go/crypto/sign"
+	"github.com/huyuncong/coniks-go/protocol"
 )
 
 // Config contains the client's configuration needed to send a request to a

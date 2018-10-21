@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/coniks-sys/coniks-go/application"
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/application"
+	"github.com/huyuncong/coniks-go/protocol"
 	"github.com/dghubble/go-twitter/twitter"
 	"github.com/dghubble/oauth1"
 )
@@ -132,7 +132,7 @@ func (bot *TwitterBot) Stop() {
 // Twitter handle which sent the DM. HandleRegistration() forwards the registration
 // request to the CONIKS server via SendRequestToCONIKS() if username matches
 // request.Username, and returns the server's response as a string.
-// See https://godoc.org/github.com/coniks-sys/coniks-go/protocol/#ConiksDirectory.Register
+// See https://godoc.org/github.com/huyuncong/coniks-go/protocol/#ConiksDirectory.Register
 // for details on the possible server responses.
 func (bot *TwitterBot) HandleRegistration(username string, msg []byte) string {
 	// validate request message

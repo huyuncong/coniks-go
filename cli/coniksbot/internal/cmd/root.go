@@ -3,7 +3,7 @@
 package cmd
 
 import (
-	"github.com/coniks-sys/coniks-go/cli"
+	"github.com/huyuncong/coniks-go/cli"
 )
 
 // RootCmd represents the base "coniksbot" command when called without any subcommands.

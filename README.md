@@ -1,7 +1,7 @@
 # CONIKS Go
 
-[![Build Status](https://travis-ci.org/coniks-sys/coniks-go.svg?branch=master)](https://travis-ci.org/coniks-sys/coniks-go)
-[![Coverage Status](https://coveralls.io/repos/github/coniks-sys/coniks-go/badge.svg?branch=master&dummy=1)](https://coveralls.io/github/coniks-sys/coniks-go)
+[![Build Status](https://travis-ci.org/huyuncong/coniks-go.svg?branch=master)](https://travis-ci.org/huyuncong/coniks-go)
+[![Coverage Status](https://coveralls.io/repos/github/huyuncong/coniks-go/badge.svg?branch=master&dummy=1)](https://coveralls.io/github/huyuncong/coniks-go)
 
 http://coniks.org
 
@@ -40,7 +40,7 @@ system and may be imported individually.
 You need to have [Golang](https://golang.org/doc/install) version 1.9 or higher installed.
 If Golang is set up correctly, you can simply run:
 ```
-go get github.com/coniks-sys/coniks-go/...
+go get github.com/huyuncong/coniks-go/...
 ```
 
 For usage instructions, see the documentation in their respective packages: [CONIKS-server](cli/coniksserver), a
@@ -50,11 +50,11 @@ simple command-line [client](cli/coniksclient), and the [registration-proxy](cli
 
 Please keep in mind that this CONIKS library is under active development.
 The repository may contain experimental features that aren't fully tested.
-We recommend using a [tagged release](https://github.com/coniks-sys/coniks-go/releases).
+We recommend using a [tagged release](https://github.com/huyuncong/coniks-go/releases).
 
 ## API Documentation
 
-https://godoc.org/github.com/coniks-sys/coniks-go
+https://godoc.org/github.com/huyuncong/coniks-go
 
 ## Current Core Developers
 

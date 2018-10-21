@@ -1,9 +1,9 @@
 package server
 
 import (
-	"github.com/coniks-sys/coniks-go/crypto/sign"
-	"github.com/coniks-sys/coniks-go/crypto/vrf"
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/crypto/sign"
+	"github.com/huyuncong/coniks-go/crypto/vrf"
+	"github.com/huyuncong/coniks-go/protocol"
 )
 
 // Policies contains a server's CONIKS policies configuration

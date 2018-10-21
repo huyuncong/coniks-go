@@ -3,7 +3,7 @@ package directory
 import (
 	"testing"
 
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/protocol"
 )
 
 func TestPoliciesChanges(t *testing.T) {

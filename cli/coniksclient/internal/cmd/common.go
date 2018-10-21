@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/coniks-sys/coniks-go/application/client"
+	"github.com/huyuncong/coniks-go/application/client"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/ssh/terminal"
 )

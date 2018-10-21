@@ -2,7 +2,7 @@
 
 ## Usage
 ```
-⇒  go install github.com/coniks-sys/coniks-go/cli/coniksbot
+⇒  go install github.com/huyuncong/coniks-go/cli/coniksbot
 ⇒  coniksbot -h
 
 Usage:
@@ -41,4 +41,4 @@ Use "coniksbot [command] --help" for more information about a command.
 ```
 
 ## Disclaimer
-Please keep in mind that this CONIKS account verification bot implementation is under active development. The repository may contain experimental features that aren't fully tested. We recommend using a [tagged release](https://github.com/coniks-sys/coniks-go/releases).
+Please keep in mind that this CONIKS account verification bot implementation is under active development. The repository may contain experimental features that aren't fully tested. We recommend using a [tagged release](https://github.com/huyuncong/coniks-go/releases).

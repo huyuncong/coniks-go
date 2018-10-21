@@ -5,8 +5,8 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/coniks-sys/coniks-go/application/bots"
-	"github.com/coniks-sys/coniks-go/cli"
+	"github.com/huyuncong/coniks-go/application/bots"
+	"github.com/huyuncong/coniks-go/cli"
 	"github.com/spf13/cobra"
 )
 

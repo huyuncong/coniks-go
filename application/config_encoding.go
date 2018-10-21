@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/BurntSushi/toml"
-	"github.com/coniks-sys/coniks-go/utils"
+	"github.com/huyuncong/coniks-go/utils"
 )
 
 // ConfigLoader provides an interface for implementing

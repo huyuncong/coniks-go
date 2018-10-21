@@ -8,8 +8,8 @@ import (
 	"path"
 	"strconv"
 
-	"github.com/coniks-sys/coniks-go/application/server"
-	"github.com/coniks-sys/coniks-go/cli"
+	"github.com/huyuncong/coniks-go/application/server"
+	"github.com/huyuncong/coniks-go/cli"
 	"github.com/spf13/cobra"
 )
 

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/coniks-sys/coniks-go/utils"
+	"github.com/huyuncong/coniks-go/utils"
 	"golang.org/x/crypto/sha3"
 )
 

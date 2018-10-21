@@ -1,6 +1,6 @@
 package protocol
 
-import "github.com/coniks-sys/coniks-go/merkletree"
+import "github.com/huyuncong/coniks-go/merkletree"
 
 // DirSTR disambiguates merkletree.SignedTreeRoot's AssocData interface,
 // for the purpose of exporting and unmarshalling.

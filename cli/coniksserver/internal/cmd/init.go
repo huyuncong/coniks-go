@@ -5,13 +5,13 @@ import (
 	"path"
 	"strconv"
 
-	"github.com/coniks-sys/coniks-go/application"
-	"github.com/coniks-sys/coniks-go/application/server"
-	"github.com/coniks-sys/coniks-go/application/testutil"
-	"github.com/coniks-sys/coniks-go/cli"
-	"github.com/coniks-sys/coniks-go/crypto/sign"
-	"github.com/coniks-sys/coniks-go/crypto/vrf"
-	"github.com/coniks-sys/coniks-go/utils"
+	"github.com/huyuncong/coniks-go/application"
+	"github.com/huyuncong/coniks-go/application/server"
+	"github.com/huyuncong/coniks-go/application/testutil"
+	"github.com/huyuncong/coniks-go/cli"
+	"github.com/huyuncong/coniks-go/crypto/sign"
+	"github.com/huyuncong/coniks-go/crypto/vrf"
+	"github.com/huyuncong/coniks-go/utils"
 	"github.com/spf13/cobra"
 )
 

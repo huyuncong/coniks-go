@@ -1,7 +1,7 @@
 package bots
 
 import (
-	"github.com/coniks-sys/coniks-go/application"
+	"github.com/huyuncong/coniks-go/application"
 )
 
 // A TwitterConfig contains the address of the named UNIX socket

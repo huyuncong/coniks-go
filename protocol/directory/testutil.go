@@ -3,8 +3,8 @@ package directory
 import (
 	"testing"
 
-	"github.com/coniks-sys/coniks-go/crypto"
-	"github.com/coniks-sys/coniks-go/merkletree"
+	"github.com/huyuncong/coniks-go/crypto"
+	"github.com/huyuncong/coniks-go/merkletree"
 )
 
 // NewTestDirectory creates a ConiksDirectory used for testing server-side

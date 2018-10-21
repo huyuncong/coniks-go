@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/coniks-sys/coniks-go/application"
-	"github.com/coniks-sys/coniks-go/crypto/sign"
-	"github.com/coniks-sys/coniks-go/crypto/vrf"
-	"github.com/coniks-sys/coniks-go/protocol"
-	"github.com/coniks-sys/coniks-go/utils"
+	"github.com/huyuncong/coniks-go/application"
+	"github.com/huyuncong/coniks-go/crypto/sign"
+	"github.com/huyuncong/coniks-go/crypto/vrf"
+	"github.com/huyuncong/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/utils"
 )
 
 // A Config contains configuration values

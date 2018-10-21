@@ -7,12 +7,12 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/coniks-sys/coniks-go/application"
-	clientapp "github.com/coniks-sys/coniks-go/application/client"
-	"github.com/coniks-sys/coniks-go/application/testutil"
-	"github.com/coniks-sys/coniks-go/cli"
-	"github.com/coniks-sys/coniks-go/protocol"
-	"github.com/coniks-sys/coniks-go/protocol/client"
+	"github.com/huyuncong/coniks-go/application"
+	clientapp "github.com/huyuncong/coniks-go/application/client"
+	"github.com/huyuncong/coniks-go/application/testutil"
+	"github.com/huyuncong/coniks-go/cli"
+	"github.com/huyuncong/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/protocol/client"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/ssh/terminal"
 )

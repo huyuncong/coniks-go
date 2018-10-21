@@ -4,7 +4,7 @@ import (
 	"path"
 	"testing"
 
-	"github.com/coniks-sys/coniks-go/application/testutil"
+	"github.com/huyuncong/coniks-go/application/testutil"
 )
 
 func TestResolveAndListen(t *testing.T) {

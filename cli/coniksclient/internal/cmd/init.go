@@ -5,8 +5,8 @@ import (
 	"os"
 	"path"
 
-	"github.com/coniks-sys/coniks-go/application/client"
-	"github.com/coniks-sys/coniks-go/cli"
+	"github.com/huyuncong/coniks-go/application/client"
+	"github.com/huyuncong/coniks-go/cli"
 	"github.com/spf13/cobra"
 )
 

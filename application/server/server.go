@@ -1,10 +1,10 @@
 package server
 
 import (
-	"github.com/coniks-sys/coniks-go/application"
-	"github.com/coniks-sys/coniks-go/protocol"
-	"github.com/coniks-sys/coniks-go/protocol/directory"
-	"github.com/coniks-sys/coniks-go/utils"
+	"github.com/huyuncong/coniks-go/application"
+	"github.com/huyuncong/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/protocol/directory"
+	"github.com/huyuncong/coniks-go/utils"
 )
 
 // An Address describes a server's connection.

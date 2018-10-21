@@ -6,10 +6,10 @@
 package auditlog
 
 import (
-	"github.com/coniks-sys/coniks-go/crypto"
-	"github.com/coniks-sys/coniks-go/crypto/sign"
-	"github.com/coniks-sys/coniks-go/protocol"
-	"github.com/coniks-sys/coniks-go/protocol/auditor"
+	"github.com/huyuncong/coniks-go/crypto"
+	"github.com/huyuncong/coniks-go/crypto/sign"
+	"github.com/huyuncong/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/protocol/auditor"
 )
 
 type directoryHistory struct {

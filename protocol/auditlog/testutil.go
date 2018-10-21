@@ -3,9 +3,9 @@ package auditlog
 import (
 	"testing"
 
-	"github.com/coniks-sys/coniks-go/crypto"
-	"github.com/coniks-sys/coniks-go/protocol"
-	"github.com/coniks-sys/coniks-go/protocol/directory"
+	"github.com/huyuncong/coniks-go/crypto"
+	"github.com/huyuncong/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/protocol/directory"
 )
 
 var staticSigningKey = crypto.NewStaticTestSigningKey()

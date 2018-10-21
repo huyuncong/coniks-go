@@ -29,7 +29,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/coniks-sys/coniks-go/protocol"
+	"github.com/huyuncong/coniks-go/protocol"
 )
 
 const (

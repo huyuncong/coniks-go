@@ -3,8 +3,8 @@
 package main
 
 import (
-	"github.com/coniks-sys/coniks-go/cli"
-	"github.com/coniks-sys/coniks-go/cli/coniksbot/internal/cmd"
+	"github.com/huyuncong/coniks-go/cli"
+	"github.com/huyuncong/coniks-go/cli/coniksbot/internal/cmd"
 )
 
 func main() {
