@@ -4,8 +4,11 @@ import (
 	"log"
 	"net/url"
 	"os"
+	"fmt"
 	"strconv"
 	"strings"
+	"crypto/sha256"
+	"encoding/hex"
 
 	"github.com/huyuncong/coniks-go/application"
 	clientapp "github.com/huyuncong/coniks-go/application/client"
@@ -17,7 +20,9 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 )
 
-const help = "- register [name] [key]:\r\n" +
+const help = "- test:\r\n" +
+        "       Run the test that inserts 100 keys and looks up 100 keys.\r\n" +
+        "- register [name] [key]:\r\n" +
 	"	Register a new name-to-key binding on the CONIKS-server.\r\n" +
 	"- lookup [name]:\r\n" +
 	"	Lookup the key of some known contact or your own bindings.\r\n" +
@@ -101,6 +106,9 @@ func run(cmd *cobra.Command, args []string) {
 				continue
 			}
 			msg := keyLookup(cc, conf, args[1])
+			writeLineInRawMode(term, "[+] "+msg, isDebugging)
+		case "test":
+			msg := benchmark(cc, conf)
 			writeLineInRawMode(term, "[+] "+msg, isDebugging)
 		default:
 			writeLineInRawMode(term, "[!] Unrecognized command: "+cmd, isDebugging)
@@ -214,4 +222,83 @@ func keyLookup(cc *client.ConsistencyChecks, conf *clientapp.Config, name string
 		return ("Error: " + err.Error())
 	}
 	return ""
+}
+
+func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config) string {
+	for i := 0; i < 100; i++ {
+		name_raw := strconv.Itoa(i)
+		name_hash := sha256.Sum256([]byte(name_raw))
+		name := hex.EncodeToString(name_hash[:])
+
+		pubkey_raw := strconv.Itoa(i + 10000)
+		pubkey_hash := sha256.Sum256([]byte(pubkey_raw))
+		pubkey := hex.EncodeToString(pubkey_hash[:])
+
+		req, err := clientapp.CreateRegistrationMsg(name, []byte(pubkey))
+		if err != nil {
+			return ("Couldn't marshal registration request!")
+                }
+
+		var res []byte
+		regAddress := conf.RegAddress
+		if regAddress == "" {
+			regAddress = conf.Address
+		}
+		u, _ := url.Parse(regAddress)
+
+		switch u.Scheme {
+		case "tcp":
+			res, err = testutil.NewTCPClient(req, regAddress)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		case "unix":
+			res, err = testutil.NewUnixClient(req, regAddress)
+			if err != nil{
+				return ("Error while receiving response: " + err.Error())
+			}
+		default:
+			return ("Invalid config!")
+		}
+
+		response := application.UnmarshalResponse(protocol.RegistrationType, res)
+		_ = response
+		// NOTE: do nothing
+	}
+
+	fmt.Printf("Done 100 insertions.\n")
+
+	for i := 0; i < 100; i++ {
+		name_raw := strconv.Itoa(i)
+		name_hash := sha256.Sum256([]byte(name_raw))
+		name := hex.EncodeToString(name_hash[:])
+
+		req, err := clientapp.CreateKeyLookupInEpochMsg(name, 0)
+
+		var res []byte
+		u, _ := url.Parse(conf.Address)
+
+		switch u.Scheme {
+		case "tcp":
+			res, err = testutil.NewTCPClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		case "unix":
+			res, err = testutil.NewUnixClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		default:
+			return ("Invalid config!")
+		}
+
+		response := application.UnmarshalResponse(protocol.KeyLookupInEpochType, res)
+		_ = response
+		// NOTE: do nothing
+	}
+
+	fmt.Printf("Done 100 requests.\n")
+
+	return "Success"
 }

@@ -19,7 +19,17 @@ func CreateRegistrationMsg(name string, key []byte) ([]byte, error) {
 // a protocol.KeyLookupRequest for the given name.
 func CreateKeyLookupMsg(name string) ([]byte, error) {
 	return application.MarshalRequest(protocol.KeyLookupType,
-		&protocol.RegistrationRequest{
+		&protocol.KeyLookupRequest{
 			Username: name,
+		})
+}
+
+// CreateKeyLookupInEpochMsg returns a JSON encoding of
+// a protocol.KeyLookupInEpochRequest for the given name.
+func CreateKeyLookupInEpochMsg(name string, epoch uint64) ([]byte, error) {
+	return application.MarshalRequest(protocol.KeyLookupInEpochType,
+		&protocol.KeyLookupInEpochRequest{
+			Username: name,
+			Epoch: epoch,
 		})
 }
