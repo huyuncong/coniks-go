@@ -10,6 +10,7 @@ package directory
 
 import (
 	"bytes"
+	"fmt"
 
 	"github.com/huyuncong/coniks-go/crypto/sign"
 	"github.com/huyuncong/coniks-go/crypto/vrf"
@@ -160,6 +161,9 @@ func (d *ConiksDirectory) Register(req *protocol.RegistrationRequest) *protocol.
 	if tb != nil {
 		d.tbs[req.Username] = tb
 	}
+
+	fmt.Printf("Reg: %s\n", req.Username)
+
 	return protocol.NewRegistrationProof(ap, d.LatestSTR(), tb, protocol.ReqSuccess)
 }
 
@@ -240,6 +244,8 @@ func (d *ConiksDirectory) KeyLookupInEpoch(req *protocol.KeyLookupInEpochRequest
 		req.Epoch > d.LatestSTR().Epoch {
 		return protocol.NewErrorResponse(protocol.ErrMalformedMessage)
 	}
+
+	fmt.Printf("ask: %s\n", req.Username)
 
 	var strs []*protocol.DirSTR
 	startEp := req.Epoch
