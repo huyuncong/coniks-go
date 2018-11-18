@@ -268,6 +268,34 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config) string {
 
 	fmt.Printf("Done 100 insertions.\n")
 
+	var next_epoch uint64 = 0
+	for i := 0; i < 100; i++ {
+		next_epoch = next_epoch + 1
+		req, err := clientapp.CreateEpochIncreaseMsg(next_epoch)
+
+		var res []byte
+		u, _ := url.Parse(conf.Address)
+
+		switch u.Scheme {
+		case "tcp":
+			res, err = testutil.NewTCPClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		case "unix":
+			res, err = testutil.NewUnixClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		default:
+			return ("Invalid config!")
+		}
+
+		response := application.UnmarshalResponse(protocol.EpochIncreaseType, res)
+		_ = response
+		// NOTE: do nothing
+	}
+
 	for i := 0; i < 100; i++ {
 		name_raw := strconv.Itoa(i)
 		name_hash := sha256.Sum256([]byte(name_raw))

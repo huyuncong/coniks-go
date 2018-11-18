@@ -48,6 +48,7 @@ func NewConiksServer(conf *Config) *ConiksServer {
 		perms[addr.ServerAddress][protocol.KeyLookupInEpochType] = true
 		perms[addr.ServerAddress][protocol.MonitoringType] = true
 		perms[addr.ServerAddress][protocol.RegistrationType] = addr.AllowRegistration
+		perms[addr.ServerAddress][protocol.EpochIncreaseType] = true
 	}
 
 	// create server instance
@@ -95,6 +96,10 @@ func (server *ConiksServer) HandleRequests(req *protocol.Request) *protocol.Resp
 		if msg, ok := req.Request.(*protocol.MonitoringRequest); ok {
 			return server.dir.Monitor(msg)
 		}
+	case protocol.EpochIncreaseType:
+		if msg, ok := req.Request.(*protocol.EpochIncreaseRequest); ok {
+			return server.dir.EpochIncrease(msg)
+		}
 	}
 
 	return protocol.NewErrorResponse(protocol.ErrMalformedMessage)
@@ -104,9 +109,9 @@ func (server *ConiksServer) HandleRequests(req *protocol.Request) *protocol.Resp
 // It listens for all declared connections with corresponding
 // permissions.
 func (server *ConiksServer) Run(addrs []*Address) {
-	server.RunInBackground(func() {
-		server.EpochUpdate(server.epochTimer, server.dir.Update)
-	})
+	//server.RunInBackground(func() {
+	//	server.EpochUpdate(server.epochTimer, server.dir.Update)
+	//})
 
 	hasRegistrationPerm := false
 	for i := 0; i < len(addrs); i++ {
