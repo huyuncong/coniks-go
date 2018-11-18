@@ -273,7 +273,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config) string {
 		name_hash := sha256.Sum256([]byte(name_raw))
 		name := hex.EncodeToString(name_hash[:])
 
-		req, err := clientapp.CreateKeyLookupInEpochMsg(name, 0)
+		req, err := clientapp.CreateKeyLookupInEpochMsg(name, 1)
 
 		var res []byte
 		u, _ := url.Parse(conf.Address)
