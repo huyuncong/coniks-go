@@ -33,3 +33,12 @@ func CreateKeyLookupInEpochMsg(name string, epoch uint64) ([]byte, error) {
 			Epoch: epoch,
 		})
 }
+
+// CreateEpochIncreaseMsg returns a JSON encoding of 
+// a protocol.EpochIncreaseRequest for the given name.
+func CreateEpochIncreaseMsg(epoch uint64) ([]byte, error) {
+	return application.MarshalRequest(protocol.EpochIncreaseType,
+		&protocol.EpochIncreaseRequest{
+			Epoch: epoch,
+		})
+}

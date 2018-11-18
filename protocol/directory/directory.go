@@ -245,7 +245,7 @@ func (d *ConiksDirectory) KeyLookupInEpoch(req *protocol.KeyLookupInEpochRequest
 		return protocol.NewErrorResponse(protocol.ErrMalformedMessage)
 	}
 
-	fmt.Printf("ask: %s\n", req.Username)
+	fmt.Printf("ask: %s %d %d \n", req.Username, req.Epoch, d.LatestSTR().Epoch)
 
 	var strs []*protocol.DirSTR
 	startEp := req.Epoch
@@ -263,8 +263,25 @@ func (d *ConiksDirectory) KeyLookupInEpoch(req *protocol.KeyLookupInEpochRequest
 	if bytes.Equal(ap.LookupIndex, ap.Leaf.Index) {
 		return protocol.NewKeyLookupInEpochProof(ap, strs, protocol.ReqSuccess)
 	}
+
 	return protocol.NewKeyLookupInEpochProof(ap, strs, protocol.ReqNameNotFound)
 }
+
+// EpochIncrease() increases the number of epoch to the target one
+func (d *ConiksDirectory) EpochIncrease(req *protocol.EpochIncreaseRequest) *protocol.Response {
+	dest_epoch := req.Epoch
+	src_epoch := d.LatestSTR().Epoch
+
+	for src_epoch < dest_epoch {
+		fmt.Printf("Epoch increase: %d -> %d\n", src_epoch, dest_epoch)
+		d.Update()
+		src_epoch = d.LatestSTR().Epoch
+	}
+
+	return protocol.NewEpochIncreaseResponse(src_epoch, dest_epoch)
+}
+
+
 
 // Monitor gets the directory proofs for the username for the range of
 // epochs indicated in the MonitoringRequest req received from a
