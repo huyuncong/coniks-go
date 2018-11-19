@@ -229,11 +229,11 @@ func keyLookup(cc *client.ConsistencyChecks, conf *clientapp.Config, name string
 	return ""
 }
 
-func WorkLoadInit(cc *client.ConsistencyChecks, conf *clientapp.Config) string{
+func workloadInit(cc *client.ConsistencyChecks, conf *clientapp.Config) string{
 	var PerEpochNewRecord uint64 = 250
 	var Epochs uint64 = 6 * 30 * 24
 
-	req, err = clientapp.CreatingWorkLoadMsg(PerEpochNewRecord, Epochs)
+	req, err := clientapp.CreateWorkloadInitMsg(PerEpochNewRecord, Epochs)
 	if err != nil {
 		return ("Couldn't marshal workload initialization request!")
 	}
@@ -259,6 +259,7 @@ func WorkLoadInit(cc *client.ConsistencyChecks, conf *clientapp.Config) string{
 	response := application.UnmarshalResponse(protocol.WorkloadInitType, res)
 	_ = response
 	// NOTE: do nothing
+	return ""
 }
 
 func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config) string {
