@@ -20,7 +20,9 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 )
 
-const help = "- test:\r\n" +
+const help = "- workloadinit:\r\n" +
+	"       Initialize the workload.\r\n" +
+	"- test:\r\n" +
         "       Run the test that inserts 100 keys and looks up 100 keys.\r\n" +
         "- register [name] [key]:\r\n" +
 	"	Register a new name-to-key binding on the CONIKS-server.\r\n" +
@@ -109,6 +111,9 @@ func run(cmd *cobra.Command, args []string) {
 			writeLineInRawMode(term, "[+] "+msg, isDebugging)
 		case "test":
 			msg := benchmark(cc, conf)
+			writeLineInRawMode(term, "[+] "+msg, isDebugging)
+		case "workloadinit":
+			msg := workloadInit(cc, conf)
 			writeLineInRawMode(term, "[+] "+msg, isDebugging)
 		default:
 			writeLineInRawMode(term, "[!] Unrecognized command: "+cmd, isDebugging)
@@ -224,8 +229,40 @@ func keyLookup(cc *client.ConsistencyChecks, conf *clientapp.Config, name string
 	return ""
 }
 
+func WorkLoadInit(cc *client.ConsistencyChecks, conf *clientapp.Config) string{
+	var PerEpochNewRecord uint64 = 250
+	var Epochs uint64 = 6 * 30 * 24
+
+	req, err = clientapp.CreatingWorkLoadMsg(PerEpochNewRecord, Epochs)
+	if err != nil {
+		return ("Couldn't marshal workload initialization request!")
+	}
+
+	var res []byte
+	u, _ := url.Parse(conf.Address)
+
+	switch u.Scheme {
+	case "tcp":
+		res, err = testutil.NewTCPClient(req, conf.Address)
+		if err != nil {
+			return ("Error while receiving response: " + err.Error())
+		}
+	case "unix":
+		res, err = testutil.NewUnixClient(req, conf.Address)
+		if err != nil {
+			return ("Error while receiving response: " + err.Error())
+		}
+	default:
+		return ("Invalid config!")
+	}
+
+	response := application.UnmarshalResponse(protocol.WorkloadInitType, res)
+	_ = response
+	// NOTE: do nothing
+}
+
 func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config) string {
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 10; i++ {
 		name_raw := strconv.Itoa(i)
 		name_hash := sha256.Sum256([]byte(name_raw))
 		name := hex.EncodeToString(name_hash[:])
@@ -236,7 +273,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config) string {
 
 		req, err := clientapp.CreateRegistrationMsg(name, []byte(pubkey))
 		if err != nil {
-			return ("Couldn't marshal registration request!")
+			return ("Couldn't marshal benchmark request!")
                 }
 
 		var res []byte
@@ -269,7 +306,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config) string {
 	fmt.Printf("Done 100 insertions.\n")
 
 	var next_epoch uint64 = 0
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 10; i++ {
 		next_epoch = next_epoch + 1
 		req, err := clientapp.CreateEpochIncreaseMsg(next_epoch)
 
@@ -296,7 +333,9 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config) string {
 		// NOTE: do nothing
 	}
 
-	for i := 0; i < 100; i++ {
+	fmt.Printf("Ask for 10 epochs.\n")
+
+	for i := 0; i < 10; i++ {
 		name_raw := strconv.Itoa(i)
 		name_hash := sha256.Sum256([]byte(name_raw))
 		name := hex.EncodeToString(name_hash[:])
