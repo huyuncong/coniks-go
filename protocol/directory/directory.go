@@ -294,11 +294,10 @@ func (d *ConiksDirectory) WorkloadInit(req *protocol.WorkloadInitRequest) *proto
 	current_epoch := d.LatestSTR().Epoch
 
 	var counter uint64 = 0
-	var counter_epoch uint64 = 0
 
 	var i uint64 = 0
 
-	for current_epoch < counter_epoch {
+	for current_epoch < dest_epoch {
 		for i = 0; i < per_epoch_new_record; i++ {
 			name_raw := strconv.Itoa(int(counter))
 			pubkey_raw := strconv.Itoa(int(counter) + 10000)
