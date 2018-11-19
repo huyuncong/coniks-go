@@ -18,6 +18,7 @@ const (
 	AuditType
 	STRType
 	EpochIncreaseType
+	WorkloadInitType
 )
 
 // A Request message defines the data a CONIKS client must send to a CONIKS
@@ -125,6 +126,11 @@ type STRHistoryRequest struct {
 
 type EpochIncreaseRequest struct {
 	Epoch uint64
+}
+
+type WorkloadInitRequest struct {
+	PerEpochNewRecord uint64
+	Epochs uint64
 }
 
 // A Response message indicates the result of a CONIKS client request
@@ -237,6 +243,12 @@ func NewKeyLookupInEpochProof(ap *merkletree.AuthenticationPath,
 
 // EpochIncreaseResponse currently does not include the source and dest epochs.
 func NewEpochIncreaseResponse(src_epoch uint64, dest_epoch uint64) *Response {
+	return &Response{
+		Error: ReqSuccess,
+	}
+}
+
+func NewWorkloadInitResponse(dest_epoch uint64) *Response {
 	return &Response{
 		Error: ReqSuccess,
 	}

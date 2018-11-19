@@ -42,3 +42,11 @@ func CreateEpochIncreaseMsg(epoch uint64) ([]byte, error) {
 			Epoch: epoch,
 		})
 }
+
+func CreateWorkloadInitMsg(perEpochNewRecord uint64, epochs uint64) ([]byte, error) {
+	return application.MarshalRequest(protocol.WorkloadInitType,
+		&protocol.WorkloadInitRequest{
+			PerEpochNewRecord: perEpochNewRecord,
+			Epochs: epochs,
+		})
+}

@@ -11,6 +11,9 @@ package directory
 import (
 	"bytes"
 	"fmt"
+	"strconv"
+	"crypto/sha256"
+	"encoding/hex"
 
 	"github.com/huyuncong/coniks-go/crypto/sign"
 	"github.com/huyuncong/coniks-go/crypto/vrf"
@@ -272,6 +275,8 @@ func (d *ConiksDirectory) EpochIncrease(req *protocol.EpochIncreaseRequest) *pro
 	dest_epoch := req.Epoch
 	src_epoch := d.LatestSTR().Epoch
 
+	fmt.Printf("increase from %d to %d\n", src_epoch, dest_epoch)
+
 	for src_epoch < dest_epoch {
 		fmt.Printf("Epoch increase: %d -> %d\n", src_epoch, dest_epoch)
 		d.Update()
@@ -279,6 +284,43 @@ func (d *ConiksDirectory) EpochIncrease(req *protocol.EpochIncreaseRequest) *pro
 	}
 
 	return protocol.NewEpochIncreaseResponse(src_epoch, dest_epoch)
+}
+
+// WorkloadInit() follows the design document to add the records into the system
+func (d *ConiksDirectory) WorkloadInit(req *protocol.WorkloadInitRequest) *protocol.Response {
+	dest_epoch := req.Epochs
+	per_epoch_new_record := req.PerEpochNewRecord
+
+	current_epoch := d.LatestSTR().Epoch
+
+	var counter uint64 = 0
+	var counter_epoch uint64 = 0
+
+	var i uint64 = 0
+
+	for current_epoch < counter_epoch {
+		for i = 0; i < per_epoch_new_record; i++ {
+			name_raw := strconv.Itoa(int(counter))
+			pubkey_raw := strconv.Itoa(int(counter) + 10000)
+			counter = counter + 1
+
+			name_hash := sha256.Sum256([]byte(name_raw))
+			pubkey_hash := sha256.Sum256([]byte(pubkey_raw))
+			name := hex.EncodeToString(name_hash[:])
+			pubkey := hex.EncodeToString(pubkey_hash[:])
+
+			if err:= d.pad.Set(name, []byte(pubkey)); err != nil {
+				return protocol.NewErrorResponse(protocol.ErrDirectory)
+			}
+		}
+
+		d.Update()
+		current_epoch = d.LatestSTR().Epoch
+
+		fmt.Printf("Epoch is now at %d.\n", current_epoch)
+	}
+
+	return protocol.NewWorkloadInitResponse(dest_epoch)
 }
 
 

@@ -49,6 +49,7 @@ func NewConiksServer(conf *Config) *ConiksServer {
 		perms[addr.ServerAddress][protocol.MonitoringType] = true
 		perms[addr.ServerAddress][protocol.RegistrationType] = addr.AllowRegistration
 		perms[addr.ServerAddress][protocol.EpochIncreaseType] = true
+		perms[addr.ServerAddress][protocol.WorkloadInitType] = true
 	}
 
 	// create server instance
@@ -78,6 +79,7 @@ func NewConiksServer(conf *Config) *ConiksServer {
 
 // HandleRequests validates the request message and passes it to the
 // appropriate operation handler according to the request type.
+
 func (server *ConiksServer) HandleRequests(req *protocol.Request) *protocol.Response {
 	switch req.Type {
 	case protocol.RegistrationType:
@@ -99,6 +101,10 @@ func (server *ConiksServer) HandleRequests(req *protocol.Request) *protocol.Resp
 	case protocol.EpochIncreaseType:
 		if msg, ok := req.Request.(*protocol.EpochIncreaseRequest); ok {
 			return server.dir.EpochIncrease(msg)
+		}
+	case protocol.WorkloadInitType:
+		if msg, ok := req.Request.(*protocol.WorkloadInitRequest); ok {
+			return server.dir.WorkloadInit(msg)
 		}
 	}
 

@@ -39,6 +39,10 @@ func UnmarshalRequest(msg []byte) (*protocol.Request, error) {
 		request = new(protocol.KeyLookupInEpochRequest)
 	case protocol.MonitoringType:
 		request = new(protocol.MonitoringRequest)
+	case protocol.EpochIncreaseType:
+		request = new(protocol.EpochIncreaseRequest)
+	case protocol.WorkloadInitType:
+		request = new(protocol.WorkloadInitRequest)
 	}
 	if err := json.Unmarshal(content, &request); err != nil {
 		return nil, err
