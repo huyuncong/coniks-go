@@ -9,6 +9,7 @@ import (
 	"strings"
 	"crypto/sha256"
 	"encoding/hex"
+	"time"
 
 	"github.com/huyuncong/coniks-go/application"
 	clientapp "github.com/huyuncong/coniks-go/application/client"
@@ -267,7 +268,10 @@ func workloadInit(cc *client.ConsistencyChecks, conf *clientapp.Config) string{
 }
 
 func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday int, oneweek int, twoweeks int, onemonth int, sixmonths int) string {
+	start_total := time.Now()
+	
 	// #1: the case for oneday
+	start := time.Now()
 	for i := 0; i < oneday ; i++ {
 		rand_index := rand.Intn(40000) + 1
 		name_raw := strconv.Itoa(rand_index)
@@ -298,13 +302,155 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday int,
 		_ = response
 		// NOTE: do nothing
 	}
+	end := time.Now()
+	
+	fmt.Printf("Done one day: %d. It takes %s. \n", oneday, end.Sub(start))
 
+	// #2: the case for oneweek
+	start = time.Now()
 	for i := 0; i < oneweek; i++ {
-		
+		rand_index := rand.Intn(40000) + 1
+		name_raw := strconv.Itoa(rand_index)
+		name_hash := sha256.Sum256([]byte(name_raw))
+		name := hex.EncodeToString(name_hash[:])
+
+		req, err := clientapp.CreateKeyLookupInEpochMsg(name, 4320 - 24 * 7)
+
+		var res []byte
+		u, _ := url.Parse(conf.Address)
+
+		switch u.Scheme {
+		case "tcp":
+			res, err = testutil.NewTCPClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		case "unix":
+			res, err = testutil.NewUnixClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		default:
+			return ("Invalid config!")
+		}
+
+		response := application.UnmarshalResponse(protocol.KeyLookupInEpochType, res)
+		_ = response
+		// NOTE: donothing
 	}
+	end = time.Now()
+	
+	fmt.Printf("Done one week: %d. It takes %s. \n", oneweek, end.Sub(start))
 
+	// #3: the case for twoweeks
+	start = time.Now()
+	for i := 0; i < twoweeks; i++ {
+		rand_index := rand.Intn(40000) + 1
+		name_raw := strconv.Itoa(rand_index)
+		name_hash := sha256.Sum256([]byte(name_raw))
+		name := hex.EncodeToString(name_hash[:])
 
-	fmt.Printf("Done 10 requests.\n")
+		req, err := clientapp.CreateKeyLookupInEpochMsg(name, 4320 - 24 * 7 * 2)
 
+		var res []byte
+		u, _ := url.Parse(conf.Address)
+
+		switch u.Scheme {
+		case "tcp":
+			res, err = testutil.NewTCPClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		case "unix":
+			res, err = testutil.NewUnixClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		default:
+			return ("Invalid config!")
+		}
+
+		response := application.UnmarshalResponse(protocol.KeyLookupInEpochType, res)
+		_ = response
+		// NOTE: donothing
+	}
+	end = time.Now()
+	
+	fmt.Printf("Done two weeks: %d. It takes %s. \n", twoweeks, end.Sub(start))
+
+	// #4: the case for one month
+	start = time.Now()
+	for i := 0; i < onemonth; i++ {
+		rand_index := rand.Intn(40000) + 1
+		name_raw := strconv.Itoa(rand_index)
+		name_hash := sha256.Sum256([]byte(name_raw))
+		name := hex.EncodeToString(name_hash[:])
+
+		req, err := clientapp.CreateKeyLookupInEpochMsg(name, 4320 - 24 * 30)
+
+		var res []byte
+		u, _ := url.Parse(conf.Address)
+
+		switch u.Scheme {
+		case "tcp":
+			res, err = testutil.NewTCPClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		case "unix":
+			res, err = testutil.NewUnixClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		default:
+			return ("Invalid config!")
+		}
+
+		response := application.UnmarshalResponse(protocol.KeyLookupInEpochType, res)
+		_ = response
+		// NOTE: donothing
+	}
+	end = time.Now()
+	
+	fmt.Printf("Done one month: %d. It takes %s. \n", onemonth, end.Sub(start))
+	
+	// #5: the case for six months
+	start = time.Now()
+	for i := 0; i < sixmonths; i++ {
+		rand_index := rand.Intn(40000) + 1
+		name_raw := strconv.Itoa(rand_index)
+		name_hash := sha256.Sum256([]byte(name_raw))
+		name := hex.EncodeToString(name_hash[:])
+
+		req, err := clientapp.CreateKeyLookupInEpochMsg(name, 1)
+
+		var res []byte
+		u, _ := url.Parse(conf.Address)
+
+		switch u.Scheme {
+		case "tcp":
+			res, err = testutil.NewTCPClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		case "unix":
+			res, err = testutil.NewUnixClient(req, conf.Address)
+			if err != nil {
+				return ("Error while receiving response: " + err.Error())
+			}
+		default:
+			return ("Invalid config!")
+		}
+
+		response := application.UnmarshalResponse(protocol.KeyLookupInEpochType, res)
+		_ = response
+		// NOTE: donothing
+	}
+	end = time.Now()
+	
+	fmt.Printf("Done six months: %d. It takes %s. \n", sixmonths, end.Sub(start))
+	
+	end_total := time.Now()
+	fmt.Printf("The total: %s.\n", end_total.Sub(start_total))
 	return "Success"
 }
