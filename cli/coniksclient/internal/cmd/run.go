@@ -115,7 +115,7 @@ func run(cmd *cobra.Command, args []string) {
 				writeLineInRawMode(term, "[!] Incorrect number of args to test.", isDebugging)
 				continue
 			}
-			msg := benchmark(cc, conf, args[1], args[2], args[3], args[4], args[5]))
+			msg := benchmark(cc, conf, args[1], args[2], args[3], args[4], args[5])
 			writeLineInRawMode(term, "[+] "+msg, isDebugging)
 		case "workloadinit":
 			msg := workloadInit(cc, conf)
@@ -267,9 +267,21 @@ func workloadInit(cc *client.ConsistencyChecks, conf *clientapp.Config) string{
 	return ""
 }
 
-func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday int, oneweek int, twoweeks int, onemonth int, sixmonths int) string {
-	start_total := time.Now()
+func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str string, oneweek_str string, twoweeks_str string, onemonth_str string, sixmonths_str string) string {
+	oneday, err := strconv.Atoi(oneday_str)
+	if err != nil{
+		return ("Cannot convert the number: " + err.Error())
+	}
+
 	
+
+	oneweek := strconv.Atoi(oneweek_str)
+	twoweeks := strconv.Atoi(twoweeks_str)
+	onemonth := strconv.Atoi(onemonth_str)
+	sixmonths := strconv.Atoi(sixmonths_str)
+
+	start_total := time.Now()
+
 	// #1: the case for oneday
 	start := time.Now()
 	for i := 0; i < oneday ; i++ {
@@ -303,7 +315,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday int,
 		// NOTE: do nothing
 	}
 	end := time.Now()
-	
+
 	fmt.Printf("Done one day: %d. It takes %s. \n", oneday, end.Sub(start))
 
 	// #2: the case for oneweek
@@ -339,7 +351,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday int,
 		// NOTE: donothing
 	}
 	end = time.Now()
-	
+
 	fmt.Printf("Done one week: %d. It takes %s. \n", oneweek, end.Sub(start))
 
 	// #3: the case for twoweeks
@@ -375,7 +387,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday int,
 		// NOTE: donothing
 	}
 	end = time.Now()
-	
+
 	fmt.Printf("Done two weeks: %d. It takes %s. \n", twoweeks, end.Sub(start))
 
 	// #4: the case for one month
@@ -411,9 +423,9 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday int,
 		// NOTE: donothing
 	}
 	end = time.Now()
-	
+
 	fmt.Printf("Done one month: %d. It takes %s. \n", onemonth, end.Sub(start))
-	
+
 	// #5: the case for six months
 	start = time.Now()
 	for i := 0; i < sixmonths; i++ {
@@ -447,9 +459,9 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday int,
 		// NOTE: donothing
 	}
 	end = time.Now()
-	
+
 	fmt.Printf("Done six months: %d. It takes %s. \n", sixmonths, end.Sub(start))
-	
+
 	end_total := time.Now()
 	fmt.Printf("The total: %s.\n", end_total.Sub(start_total))
 	return "Success"
