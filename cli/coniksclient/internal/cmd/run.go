@@ -10,6 +10,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"time"
+	"math/rand"
 
 	"github.com/huyuncong/coniks-go/application"
 	clientapp "github.com/huyuncong/coniks-go/application/client"
@@ -277,17 +278,17 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 	if err != nil {
 		return ("Cannot convert the number: " + err.Error())
 	}
-	
+
 	twoweeks, err := strconv.Atoi(twoweeks_str)
 	if err != nil {
 		return ("Cannot convert the number: " + err.Error())
 	}
-	
+
 	onemonth, err := strconv.Atoi(onemonth_str)
 	if err != nil {
 		return ("Cannot convert the number: " + err.Error())
 	}
-	
+
 	sixmonths, err := strconv.Atoi(sixmonths_str)
 	if err != nil {
 		return ("Cannot convert the number: " + err.Error())
