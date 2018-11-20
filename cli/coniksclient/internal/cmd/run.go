@@ -269,16 +269,29 @@ func workloadInit(cc *client.ConsistencyChecks, conf *clientapp.Config) string{
 
 func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str string, oneweek_str string, twoweeks_str string, onemonth_str string, sixmonths_str string) string {
 	oneday, err := strconv.Atoi(oneday_str)
-	if err != nil{
+	if err != nil {
 		return ("Cannot convert the number: " + err.Error())
 	}
 
+	oneweek, err := strconv.Atoi(oneweek_str)
+	if err != nil {
+		return ("Cannot convert the number: " + err.Error())
+	}
 	
-
-	oneweek := strconv.Atoi(oneweek_str)
-	twoweeks := strconv.Atoi(twoweeks_str)
-	onemonth := strconv.Atoi(onemonth_str)
-	sixmonths := strconv.Atoi(sixmonths_str)
+	twoweeks, err := strconv.Atoi(twoweeks_str)
+	if err != nil {
+		return ("Cannot convert the number: " + err.Error())
+	}
+	
+	onemonth, err := strconv.Atoi(onemonth_str)
+	if err != nil {
+		return ("Cannot convert the number: " + err.Error())
+	}
+	
+	sixmonths, err := strconv.Atoi(sixmonths_str)
+	if err != nil {
+		return ("Cannot convert the number: " + err.Error())
+	}
 
 	start_total := time.Now()
 
