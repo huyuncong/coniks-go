@@ -299,7 +299,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 	// #1: the case for oneday
 	start := time.Now()
 	for i := 0; i < oneday ; i++ {
-		rand_index := rand.Intn(40000) + 1
+		rand_index := rand.Intn(20) + 1
 		name_raw := strconv.Itoa(rand_index)
 		name_hash := sha256.Sum256([]byte(name_raw))
 		name := hex.EncodeToString(name_hash[:])
@@ -335,7 +335,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 	// #2: the case for oneweek
 	start = time.Now()
 	for i := 0; i < oneweek; i++ {
-		rand_index := rand.Intn(40000) + 1
+		rand_index := rand.Intn(20) + 1
 		name_raw := strconv.Itoa(rand_index)
 		name_hash := sha256.Sum256([]byte(name_raw))
 		name := hex.EncodeToString(name_hash[:])
@@ -371,7 +371,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 	// #3: the case for twoweeks
 	start = time.Now()
 	for i := 0; i < twoweeks; i++ {
-		rand_index := rand.Intn(40000) + 1
+		rand_index := rand.Intn(20) + 1
 		name_raw := strconv.Itoa(rand_index)
 		name_hash := sha256.Sum256([]byte(name_raw))
 		name := hex.EncodeToString(name_hash[:])
@@ -407,7 +407,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 	// #4: the case for one month
 	start = time.Now()
 	for i := 0; i < onemonth; i++ {
-		rand_index := rand.Intn(40000) + 1
+		rand_index := rand.Intn(20) + 1
 		name_raw := strconv.Itoa(rand_index)
 		name_hash := sha256.Sum256([]byte(name_raw))
 		name := hex.EncodeToString(name_hash[:])
@@ -443,7 +443,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 	// #5: the case for six months
 	start = time.Now()
 	for i := 0; i < sixmonths; i++ {
-		rand_index := rand.Intn(40000) + 1
+		rand_index := rand.Intn(20) + 1
 		name_raw := strconv.Itoa(rand_index)
 		name_hash := sha256.Sum256([]byte(name_raw))
 		name := hex.EncodeToString(name_hash[:])
