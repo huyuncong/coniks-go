@@ -22,8 +22,8 @@ import (
 
 const help = "- workloadinit:\r\n" +
 	"       Initialize the workload.\r\n" +
-	"- test:\r\n" +
-        "       Run the test that inserts 100 keys and looks up 100 keys.\r\n" +
+	"- test [one day] [one week] [two weeks] [one month] [six months]:\r\n" +
+        "       Run the test for retrieving the keys.\r\n" +
         "- register [name] [key]:\r\n" +
 	"	Register a new name-to-key binding on the CONIKS-server.\r\n" +
 	"- lookup [name]:\r\n" +
@@ -110,7 +110,11 @@ func run(cmd *cobra.Command, args []string) {
 			msg := keyLookup(cc, conf, args[1])
 			writeLineInRawMode(term, "[+] "+msg, isDebugging)
 		case "test":
-			msg := benchmark(cc, conf)
+			if len(args) != 6 {
+				writeLineInRawMode(term, "[!] Incorrect number of args to test.", isDebugging)
+				continue
+			}
+			msg := benchmark(cc, conf, args[1], args[2], args[3], args[4], args[5]))
 			writeLineInRawMode(term, "[+] "+msg, isDebugging)
 		case "workloadinit":
 			msg := workloadInit(cc, conf)
@@ -230,7 +234,7 @@ func keyLookup(cc *client.ConsistencyChecks, conf *clientapp.Config, name string
 }
 
 func workloadInit(cc *client.ConsistencyChecks, conf *clientapp.Config) string{
-	var PerEpochNewRecord uint64 = 250
+	var PerEpochNewRecord uint64 = 10
 	var Epochs uint64 = 6 * 30 * 24
 
 	req, err := clientapp.CreateWorkloadInitMsg(PerEpochNewRecord, Epochs)
@@ -262,86 +266,15 @@ func workloadInit(cc *client.ConsistencyChecks, conf *clientapp.Config) string{
 	return ""
 }
 
-func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config) string {
-	for i := 0; i < 10; i++ {
-		name_raw := strconv.Itoa(i)
+func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday int, oneweek int, twoweeks int, onemonth int, sixmonths int) string {
+	// #1: the case for oneday
+	for i := 0; i < oneday ; i++ {
+		rand_index := rand.Intn(40000) + 1
+		name_raw := strconv.Itoa(rand_index)
 		name_hash := sha256.Sum256([]byte(name_raw))
 		name := hex.EncodeToString(name_hash[:])
 
-		pubkey_raw := strconv.Itoa(i + 10000)
-		pubkey_hash := sha256.Sum256([]byte(pubkey_raw))
-		pubkey := hex.EncodeToString(pubkey_hash[:])
-
-		req, err := clientapp.CreateRegistrationMsg(name, []byte(pubkey))
-		if err != nil {
-			return ("Couldn't marshal benchmark request!")
-                }
-
-		var res []byte
-		regAddress := conf.RegAddress
-		if regAddress == "" {
-			regAddress = conf.Address
-		}
-		u, _ := url.Parse(regAddress)
-
-		switch u.Scheme {
-		case "tcp":
-			res, err = testutil.NewTCPClient(req, regAddress)
-			if err != nil {
-				return ("Error while receiving response: " + err.Error())
-			}
-		case "unix":
-			res, err = testutil.NewUnixClient(req, regAddress)
-			if err != nil{
-				return ("Error while receiving response: " + err.Error())
-			}
-		default:
-			return ("Invalid config!")
-		}
-
-		response := application.UnmarshalResponse(protocol.RegistrationType, res)
-		_ = response
-		// NOTE: do nothing
-	}
-
-	fmt.Printf("Done 100 insertions.\n")
-
-	var next_epoch uint64 = 0
-	for i := 0; i < 10; i++ {
-		next_epoch = next_epoch + 1
-		req, err := clientapp.CreateEpochIncreaseMsg(next_epoch)
-
-		var res []byte
-		u, _ := url.Parse(conf.Address)
-
-		switch u.Scheme {
-		case "tcp":
-			res, err = testutil.NewTCPClient(req, conf.Address)
-			if err != nil {
-				return ("Error while receiving response: " + err.Error())
-			}
-		case "unix":
-			res, err = testutil.NewUnixClient(req, conf.Address)
-			if err != nil {
-				return ("Error while receiving response: " + err.Error())
-			}
-		default:
-			return ("Invalid config!")
-		}
-
-		response := application.UnmarshalResponse(protocol.EpochIncreaseType, res)
-		_ = response
-		// NOTE: do nothing
-	}
-
-	fmt.Printf("Ask for 10 epochs.\n")
-
-	for i := 0; i < 10; i++ {
-		name_raw := strconv.Itoa(i)
-		name_hash := sha256.Sum256([]byte(name_raw))
-		name := hex.EncodeToString(name_hash[:])
-
-		req, err := clientapp.CreateKeyLookupInEpochMsg(name, 1)
+		req, err := clientapp.CreateKeyLookupInEpochMsg(name, 4320 - 24)
 
 		var res []byte
 		u, _ := url.Parse(conf.Address)
@@ -366,7 +299,12 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config) string {
 		// NOTE: do nothing
 	}
 
-	fmt.Printf("Done 100 requests.\n")
+	for i := 0; i < oneweek; i++ {
+		
+	}
+
+
+	fmt.Printf("Done 10 requests.\n")
 
 	return "Success"
 }

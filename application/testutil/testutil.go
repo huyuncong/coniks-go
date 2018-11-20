@@ -156,7 +156,8 @@ func NewTCPClient(msg []byte, address string) ([]byte, error) {
 	}
 
 	var buf bytes.Buffer
-	if _, err := io.CopyN(&buf, tlsConn, 8192); err != nil && err != io.EOF {
+
+	if _, err := io.Copy(&buf, tlsConn); err != nil && err != io.EOF {
 		return nil, err
 	}
 
