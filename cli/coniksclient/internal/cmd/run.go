@@ -325,6 +325,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 		}
 
 		response := application.UnmarshalResponse(protocol.KeyLookupInEpochType, res)
+		fmt.Printf("one day: %d\n", len(res))
 		_ = response
 		// NOTE: do nothing
 	}
@@ -361,6 +362,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 		}
 
 		response := application.UnmarshalResponse(protocol.KeyLookupInEpochType, res)
+		fmt.Printf("one week: %d\n", len(res))
 		_ = response
 		// NOTE: donothing
 	}
@@ -397,6 +399,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 		}
 
 		response := application.UnmarshalResponse(protocol.KeyLookupInEpochType, res)
+		fmt.Printf("two weeks: %d\n", len(res))
 		_ = response
 		// NOTE: donothing
 	}
@@ -433,6 +436,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 		}
 
 		response := application.UnmarshalResponse(protocol.KeyLookupInEpochType, res)
+		fmt.Printf("one month: %d\n", len(res))
 		_ = response
 		// NOTE: donothing
 	}
@@ -469,6 +473,7 @@ func benchmark(cc *client.ConsistencyChecks, conf *clientapp.Config, oneday_str 
 		}
 
 		response := application.UnmarshalResponse(protocol.KeyLookupInEpochType, res)
+		fmt.Printf("six months: %d\n", len(res))
 		_ = response
 		// NOTE: donothing
 	}
